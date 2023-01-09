@@ -1,10 +1,13 @@
+html {
+    background-color: rgb(59, 59, 59);
+}
+
 body {
     padding: 0px;
-    margin: 0px;
+    margin: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(59, 59, 59);
 }
 
 #calc-frame{
@@ -16,11 +19,13 @@ body {
     display: grid;
     gap: 4px;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto repeat(5, 1fr);
     height: 100%;
 }
 
 .button{
-    background-color: rgb(136, 136, 136);
+    background-color: rgb(121, 121, 121);
+    color: rgb(240, 240, 240);
     border-radius: 8px;
     border: none;
     font-size: 22px;
@@ -31,6 +36,15 @@ body {
 }
 
 #display {
+    display: flex;
+    color: rgb(240, 240, 240);
+    border: 3px solid rgb(136, 136, 136);
+    font-size: 43px;
+    border-radius: 8px;
+    
+    align-items: center;
+    justify-content: right;
+    
     grid-column-start: 1;
     grid-column-end: 5;
 }

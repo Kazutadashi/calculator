@@ -1,10 +1,10 @@
-* {
-    border: 2px solid red;
-}
-
 body {
     padding: 0px;
     margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(59, 59, 59);
 }
 
 #calc-frame{
@@ -14,8 +14,20 @@ body {
 
 #gui {
     display: grid;
+    gap: 4px;
     grid-template-columns: repeat(4, 1fr);
     height: 100%;
+}
+
+.button{
+    background-color: rgb(136, 136, 136);
+    border-radius: 8px;
+    border: none;
+    font-size: 22px;
+}
+
+.button:hover {
+    background-color: rgb(80, 80, 80);
 }
 
 #display {

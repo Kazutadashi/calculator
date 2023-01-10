@@ -28,7 +28,7 @@ body {
     color: rgb(240, 240, 240);
     border-radius: 8px;
     border: none;
-    font-size: 22px;
+    font-size: 27px;
 }
 
 .button:hover {
@@ -39,7 +39,8 @@ body {
     display: flex;
     color: rgb(240, 240, 240);
     border: 3px solid rgb(136, 136, 136);
-    font-size: 43px;
+    font-size: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 8px;
     padding-right: 5px;
     
@@ -48,11 +49,6 @@ body {
     
     grid-column-start: 1;
     grid-column-end: 5;
-}
-
-#clear-button {
-    grid-column-start: 1;
-    grid-column-end: 3;
 }
 
 #equals-button {

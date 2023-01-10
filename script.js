@@ -39,7 +39,7 @@ function clickNumber() {
 
     if (clearDisplayOnNextInput) {
         updateDisplay(this.textContent);
-        // This is used to reset the display so we can put in additional numbers
+        // This is used to reset the display so we can put in new numbers after the symbol
         clearDisplayOnNextInput = false;
     }
     else {
@@ -73,6 +73,14 @@ function operate() {
     return 
 }
 
+function clickClear() {
+    clearDisplayOnNextInput = true;
+    currentSymbolValue = null;
+    currentDisplayValue = 0;
+    updateDisplay("0");
+    clearDisplayOnNextInput = true;
+}
+
 function negateNumber() {
     if (display.textContent[0] === "-") {
         display.textContent = display.textContent.substring(1);
@@ -82,14 +90,18 @@ function negateNumber() {
     }
 }
 
-let clearDisplayOnNextInput = true;
 const pmButton = document.querySelector(".button.pm");
 const display = document.querySelector("#display");
-let currentSymbolValue;
-let currentDisplayValue = parseFloat(display.textContent);
 const numberButtons = document.querySelectorAll(".button.number");
 const symbolButtons = document.querySelectorAll(".button.symbol");
+const clearButton = document.querySelector("#clear-button");
 
+let clearDisplayOnNextInput = true;
+let currentSymbolValue;
+let currentDisplayValue = parseFloat(display.textContent);
+
+
+clearButton.addEventListener('click', clickClear);
 pmButton.addEventListener('click', negateNumber);
 symbolButtons.forEach(button => button.addEventListener('click', clickSymbol));
 numberButtons.forEach(button => button.addEventListener('click', clickNumber));

@@ -31,8 +31,6 @@ function operate(x,y,op){
         case "×":
             return multiply(x,y); 
             //no symbol
-        case "":
-            return y;
         default:
             console.log(`Unknown symbol: ${op}`);
     }
@@ -75,7 +73,7 @@ function updateDisplay(textToShow) {
 
 function clickClear() {
     clearDisplayOnNextInput = true;
-    currentSymbolValue = "";
+    currentSymbolValue = "?";
     valueBeforeSymbolClick = 0;
     updateDisplay("0");
     clearDisplayOnNextInput = true;
@@ -98,24 +96,33 @@ function clickEquals(){
     let x;
     let y;
     let operationResult;
-
-    if (repeatOperation === false) {
-        x = parseFloat(valueBeforeSymbolClick);
-        y = parseFloat(display.textContent);
-        console.log(`operation: ${x} ${currentSymbolValue} ${y}`);
-        valueBeforeEqualClick = y;
+    console.log(`equals was clicked. currentSymbol is ${currentSymbolValue}`);
+    if (currentSymbolValue === "?"){
+        if (display.textContent === "69"){
+            display.textContent = "nice.";
+            clearDisplayOnNextInput = true;
+        }
     }
-    else if (repeatOperation === true){
-        x = lastOperationResult;
-        y = valueBeforeEqualClick;
+    else {
+        if (repeatOperation === false) {
+            x = parseFloat(valueBeforeSymbolClick);
+            y = parseFloat(display.textContent);
+            console.log(`operation: ${x} |${currentSymbolValue}| ${y}`);
+            valueBeforeEqualClick = y;
+        }
+        else if (repeatOperation === true){
+            x = lastOperationResult;
+            y = valueBeforeEqualClick;
+        }
+    
+        operationResult = operate(x,y,currentSymbolValue);
+        display.textContent = Math.round(operationResult * 100_000_000) / 100_000_000;
+        lastOperationResult = operationResult;
+        symbolButtons.forEach(button => button.removeAttribute("style"));
+        clearDisplayOnNextInput = true;
+        repeatOperation = true;
     }
 
-    operationResult = operate(x,y,currentSymbolValue);
-    display.textContent = Math.round(operationResult * 100_000_000) / 100_000_000;
-    lastOperationResult = operationResult;
-    symbolButtons.forEach(button => button.removeAttribute("style"));
-    clearDisplayOnNextInput = true;
-    repeatOperation = true;
 }
 
 function clickDot() {
@@ -141,7 +148,7 @@ let valueBeforeEqualClick;
 let lastOperationResult;
 let repeatOperation = false; 
 let clearDisplayOnNextInput = true;
-let currentSymbolValue = "";
+let currentSymbolValue = "?";
 let previousSymbol;
 let valueBeforeSymbolClick = display.textContent;
 

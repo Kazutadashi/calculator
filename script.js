@@ -44,7 +44,6 @@ function clickNumber() {
     console.log("number was clicked");
     console.log(this);
     console.log(this.textContent);
-    this.style.backgroundColor = "rgb(80, 80, 80)";
 
     if (clearDisplayOnNextInput) {
         updateDisplay(this.textContent);
@@ -117,7 +116,6 @@ function clickEquals(){
     display.textContent = operationResult;
     
     symbolButtons.forEach(button => button.removeAttribute("style"));
-    numberButtons.forEach(button => button.removeAttribute("style"));
     clearDisplayOnNextInput = true;
 }
 

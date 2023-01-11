@@ -54,5 +54,6 @@ body {
 #equals-button {
     grid-column-start: 3;
     grid-column-end: 5;
+    background-color: rgb(104, 104, 255);
 }
 

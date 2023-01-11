@@ -32,8 +32,8 @@ function operate(x,y,op){
             //this is a multiplcation sign not the letter x
         case "×":
             return multiply(x,y); 
-            // if equals is clicked without choose a symbol the initial value just return the current value
-        case undefined:
+            //no symbol
+        case "":
             return y;
         default:
             console.log(`Unknown symbol: ${op}`);
@@ -44,6 +44,7 @@ function clickNumber() {
     console.log("number was clicked");
     console.log(this);
     console.log(this.textContent);
+    this.style.backgroundColor = "rgb(80, 80, 80)";
 
     if (clearDisplayOnNextInput) {
         updateDisplay(this.textContent);
@@ -61,6 +62,7 @@ function clickSymbol(){
     previousValue = display.textContent;
     currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
+    this.style.backgroundColor = "rgb(141, 95, 10)";
     console.log(currentSymbolValue);
     console.log(previousValue);
     
@@ -81,7 +83,7 @@ function updateDisplay(textToShow) {
 
 function clickClear() {
     clearDisplayOnNextInput = true;
-    currentSymbolValue = null;
+    currentSymbolValue = "";
     previousValue = 0;
     updateDisplay("0");
     clearDisplayOnNextInput = true;
@@ -114,6 +116,8 @@ function clickEquals(){
     previousSymbol = currentSymbol;
     display.textContent = operationResult;
     
+    symbolButtons.forEach(button => button.style.backgroundColor = "rgb(121, 121, 121)");
+    numberButtons.forEach(button => button.style.backgroundColor = "rgb(121, 121, 121)");
     clearDisplayOnNextInput = true;
 }
 
@@ -137,7 +141,7 @@ const equalsButton = document.querySelector("#equals-button");
 const dotButton = document.querySelector(".button.dot");
 
 let clearDisplayOnNextInput = true;
-let currentSymbolValue;
+let currentSymbolValue = "";
 let previousSymbol;
 let previousValue = display.textContent;
 

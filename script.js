@@ -20,15 +20,20 @@ function multiply(x,y){
 }
 
 function operate(x,y,op){
+    console.log(`x: ${typeof x}`, x);
+    console.log(`y: ${typeof y}`, y);
     switch(op){
         case "+":
             return add(x,y);
         case "-":
             return subtract(x,y);
-        case "/":
+        case "÷":
             return divide(x,y);
-        case "*":
+            //this is a multiplcation sign not the letter x
+        case "×":
             return multiply(x,y); 
+        default:
+            console.log(`Unknown symbol: ${op}`);
     }
 }
 
@@ -50,9 +55,11 @@ function clickNumber() {
 
 function clickSymbol(){
     console.log("symbol was clicked");
+    currentDisplayValue = display.textContent;
     currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
     console.log(currentSymbolValue);
+    console.log(currentDisplayValue);
     
 }
 
@@ -67,10 +74,6 @@ function updateDisplay(textToShow) {
         currentDisplayValue = display.textContent;
         console.log(currentDisplayValue);
     }
-}
-
-function operate() {
-    return 
 }
 
 function clickClear() {
@@ -94,17 +97,26 @@ function clickBackspace() {
     display.textContent = display.textContent.slice(0,-1);
 }
 
+function clickEquals(){
+    operationResult = operate(parseFloat(currentDisplayValue), parseFloat(display.textContent), currentSymbolValue);
+    console.log(operationResult);
+    display.textContent = operationResult;
+    clearDisplayOnNextInput = true;
+}
+
 const pmButton = document.querySelector(".button.pm");
 const display = document.querySelector("#display");
 const numberButtons = document.querySelectorAll(".button.number");
 const symbolButtons = document.querySelectorAll(".button.symbol");
 const clearButton = document.querySelector("#clear-button");
 const backspaceButton = document.querySelector(".button.backspace");
+const equalsButton = document.querySelector("#equals-button");
 
 let clearDisplayOnNextInput = true;
 let currentSymbolValue;
-let currentDisplayValue = parseFloat(display.textContent);
+let currentDisplayValue = display.textContent;
 
+equalsButton.addEventListener('click', clickEquals)
 backspaceButton.addEventListener('click', clickBackspace);
 clearButton.addEventListener('click', clickClear);
 pmButton.addEventListener('click', negateNumber);

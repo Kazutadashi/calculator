@@ -20,8 +20,6 @@ function multiply(x,y){
 }
 
 function operate(x,y,op){
-    console.log(`x: ${typeof x}`, x);
-    console.log(`y: ${typeof y}`, y);
     switch(op){
         case "+":
             return add(x,y);
@@ -41,9 +39,6 @@ function operate(x,y,op){
 }
 
 function clickNumber() {
-    console.log("number was clicked");
-    console.log(this);
-    console.log(this.textContent);
 
     if (clearDisplayOnNextInput) {
         updateDisplay(this.textContent);
@@ -57,14 +52,11 @@ function clickNumber() {
 }
 
 function clickSymbol(){
-    console.log("symbol was clicked");
     valueBeforeSymbolClick = display.textContent;
     currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
     repeatOperation = false;
     this.style.backgroundColor = "rgb(173, 0, 0)";
-    console.log(currentSymbolValue);
-    console.log(valueBeforeSymbolClick);
     
 }
 

@@ -83,11 +83,15 @@ function clickClear() {
 
 function negateNumber() {
     if (display.textContent[0] === "-") {
-        display.textContent = display.textContent.substring(1);
+        display.textContent = display.textContent.slice(1);
     }
     else {
         display.textContent = `-${display.textContent}`;  
     }
+}
+
+function clickBackspace() {
+    display.textContent = display.textContent.slice(0,-1);
 }
 
 const pmButton = document.querySelector(".button.pm");
@@ -95,12 +99,13 @@ const display = document.querySelector("#display");
 const numberButtons = document.querySelectorAll(".button.number");
 const symbolButtons = document.querySelectorAll(".button.symbol");
 const clearButton = document.querySelector("#clear-button");
+const backspaceButton = document.querySelector(".button.backspace");
 
 let clearDisplayOnNextInput = true;
 let currentSymbolValue;
 let currentDisplayValue = parseFloat(display.textContent);
 
-
+backspaceButton.addEventListener('click', clickBackspace);
 clearButton.addEventListener('click', clickClear);
 pmButton.addEventListener('click', negateNumber);
 symbolButtons.forEach(button => button.addEventListener('click', clickSymbol));

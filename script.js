@@ -116,8 +116,8 @@ function clickEquals(){
     previousSymbol = currentSymbol;
     display.textContent = operationResult;
     
-    symbolButtons.forEach(button => button.style.backgroundColor = "rgb(121, 121, 121)");
-    numberButtons.forEach(button => button.style.backgroundColor = "rgb(121, 121, 121)");
+    symbolButtons.forEach(button => button.removeAttribute("style"));
+    numberButtons.forEach(button => button.removeAttribute("style"));
     clearDisplayOnNextInput = true;
 }
 

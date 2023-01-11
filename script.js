@@ -52,10 +52,12 @@ function clickNumber() {
 }
 
 function clickSymbol(){
-    valueBeforeSymbolClick = display.textContent;
-    currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
     repeatOperation = false;
+
+    valueBeforeSymbolClick = display.textContent;
+    currentSymbolValue = this.textContent;
+
     this.style.backgroundColor = "rgb(173, 0, 0)";
     
 }
@@ -68,8 +70,6 @@ function updateDisplay(textToShow) {
     }
     else {
         display.textContent += textToShow;
-        valueBeforeSymbolClick = display.textContent;
-        console.log(valueBeforeSymbolClick);
     }
 }
 
@@ -102,6 +102,7 @@ function clickEquals(){
     if (repeatOperation === false) {
         x = parseFloat(valueBeforeSymbolClick);
         y = parseFloat(display.textContent);
+        console.log(`operation: ${x} ${currentSymbolValue} ${y}`);
         valueBeforeEqualClick = y;
     }
     else if (repeatOperation === true){

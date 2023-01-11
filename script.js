@@ -32,6 +32,9 @@ function operate(x,y,op){
             //this is a multiplcation sign not the letter x
         case "×":
             return multiply(x,y); 
+            // if equals is clicked without choose a symbol the initial value just return the current value
+        case undefined:
+            return y;
         default:
             console.log(`Unknown symbol: ${op}`);
     }
@@ -55,11 +58,11 @@ function clickNumber() {
 
 function clickSymbol(){
     console.log("symbol was clicked");
-    currentDisplayValue = display.textContent;
+    previousValue = display.textContent;
     currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
     console.log(currentSymbolValue);
-    console.log(currentDisplayValue);
+    console.log(previousValue);
     
 }
 
@@ -71,15 +74,15 @@ function updateDisplay(textToShow) {
     }
     else {
         display.textContent += textToShow;
-        currentDisplayValue = display.textContent;
-        console.log(currentDisplayValue);
+        previousValue = display.textContent;
+        console.log(previousValue);
     }
 }
 
 function clickClear() {
     clearDisplayOnNextInput = true;
     currentSymbolValue = null;
-    currentDisplayValue = 0;
+    previousValue = 0;
     updateDisplay("0");
     clearDisplayOnNextInput = true;
 }
@@ -98,10 +101,30 @@ function clickBackspace() {
 }
 
 function clickEquals(){
-    operationResult = operate(parseFloat(currentDisplayValue), parseFloat(display.textContent), currentSymbolValue);
-    console.log(operationResult);
+    let x = parseFloat(previousValue);
+    let y = parseFloat(display.textContent);
+    let currentSymbol = currentSymbolValue;
+
+    // if user keeps hitting equals without setting another symbol, just keep doing the same operation
+    // need to swap x and y because x should now be the result of x symbol y
+    if (currentSymbol === previousSymbol){
+        [x,y] = [y,x];
+    }
+    operationResult = operate(x, y, currentSymbol);
+    previousSymbol = currentSymbol;
     display.textContent = operationResult;
+    
     clearDisplayOnNextInput = true;
+}
+
+function clickDot() {
+    if (display.textContent.includes(".")){
+        return;
+    }
+    else {
+        display.textContent += ".";
+    }
+    
 }
 
 const pmButton = document.querySelector(".button.pm");
@@ -111,12 +134,15 @@ const symbolButtons = document.querySelectorAll(".button.symbol");
 const clearButton = document.querySelector("#clear-button");
 const backspaceButton = document.querySelector(".button.backspace");
 const equalsButton = document.querySelector("#equals-button");
+const dotButton = document.querySelector(".button.dot");
 
 let clearDisplayOnNextInput = true;
 let currentSymbolValue;
-let currentDisplayValue = display.textContent;
+let previousSymbol;
+let previousValue = display.textContent;
 
-equalsButton.addEventListener('click', clickEquals)
+dotButton.addEventListener('click', clickDot);
+equalsButton.addEventListener('click', clickEquals);
 backspaceButton.addEventListener('click', clickBackspace);
 clearButton.addEventListener('click', clickClear);
 pmButton.addEventListener('click', negateNumber);

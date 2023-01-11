@@ -111,7 +111,7 @@ function clickEquals(){
     }
 
     operationResult = operate(x,y,currentSymbolValue);
-    display.textContent = operationResult;
+    display.textContent = Math.round(operationResult * 100_000_000) / 100_000_000;
     lastOperationResult = operationResult;
     symbolButtons.forEach(button => button.removeAttribute("style"));
     clearDisplayOnNextInput = true;

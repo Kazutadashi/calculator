@@ -58,12 +58,13 @@ function clickNumber() {
 
 function clickSymbol(){
     console.log("symbol was clicked");
-    previousValue = display.textContent;
+    valueBeforeSymbolClick = display.textContent;
     currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
+    repeatOperation = false;
     this.style.backgroundColor = "rgb(173, 0, 0)";
     console.log(currentSymbolValue);
-    console.log(previousValue);
+    console.log(valueBeforeSymbolClick);
     
 }
 
@@ -75,15 +76,15 @@ function updateDisplay(textToShow) {
     }
     else {
         display.textContent += textToShow;
-        previousValue = display.textContent;
-        console.log(previousValue);
+        valueBeforeSymbolClick = display.textContent;
+        console.log(valueBeforeSymbolClick);
     }
 }
 
 function clickClear() {
     clearDisplayOnNextInput = true;
     currentSymbolValue = "";
-    previousValue = 0;
+    valueBeforeSymbolClick = 0;
     updateDisplay("0");
     clearDisplayOnNextInput = true;
 }
@@ -102,19 +103,26 @@ function clickBackspace() {
 }
 
 function clickEquals(){
-    let x = parseFloat(previousValue);
-    let y = parseFloat(display.textContent);
-    let currentSymbol = currentSymbolValue;
+    let x;
+    let y;
+    let operationResult;
 
-    // if user keeps hitting equals without setting another symbol, just keep doing the same operation
-    // need to swap x and y because x should now be the result of x symbol y
-    operationResult = operate(x, y, currentSymbol);
-    previousSymbol = currentSymbol;
-    previousValue = y;
+    if (repeatOperation === false) {
+        x = parseFloat(valueBeforeSymbolClick);
+        y = parseFloat(display.textContent);
+        valueBeforeEqualClick = y;
+    }
+    else if (repeatOperation === true){
+        x = lastOperationResult;
+        y = valueBeforeEqualClick;
+    }
+
+    operationResult = operate(x,y,currentSymbolValue);
     display.textContent = operationResult;
-    
+    lastOperationResult = operationResult;
     symbolButtons.forEach(button => button.removeAttribute("style"));
     clearDisplayOnNextInput = true;
+    repeatOperation = true;
 }
 
 function clickDot() {
@@ -136,10 +144,13 @@ const backspaceButton = document.querySelector(".button.backspace");
 const equalsButton = document.querySelector("#equals-button");
 const dotButton = document.querySelector(".button.dot");
 
+let valueBeforeEqualClick;
+let lastOperationResult;
+let repeatOperation = false; 
 let clearDisplayOnNextInput = true;
 let currentSymbolValue = "";
 let previousSymbol;
-let previousValue = display.textContent;
+let valueBeforeSymbolClick = display.textContent;
 
 dotButton.addEventListener('click', clickDot);
 equalsButton.addEventListener('click', clickEquals);

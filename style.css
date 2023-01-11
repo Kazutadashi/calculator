@@ -58,3 +58,7 @@ body {
     background-color: rgb(104, 104, 255);
 }
 
+#equals-button:hover {
+    background-color: rgb(72, 72, 253);
+}
+

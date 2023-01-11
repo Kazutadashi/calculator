@@ -61,7 +61,7 @@ function clickSymbol(){
     previousValue = display.textContent;
     currentSymbolValue = this.textContent;
     clearDisplayOnNextInput = true;
-    this.style.backgroundColor = "rgb(141, 95, 10)";
+    this.style.backgroundColor = "rgb(173, 0, 0)";
     console.log(currentSymbolValue);
     console.log(previousValue);
     
@@ -108,11 +108,9 @@ function clickEquals(){
 
     // if user keeps hitting equals without setting another symbol, just keep doing the same operation
     // need to swap x and y because x should now be the result of x symbol y
-    if (currentSymbol === previousSymbol){
-        [x,y] = [y,x];
-    }
     operationResult = operate(x, y, currentSymbol);
     previousSymbol = currentSymbol;
+    previousValue = y;
     display.textContent = operationResult;
     
     symbolButtons.forEach(button => button.removeAttribute("style"));
